@@ -36,9 +36,20 @@
       display: inline-block;
       vertical-align:top;
     }
+
     a.define {
       color: #CFEFFF;
       text-decoration: underline;
+    }
+
+    .social {
+      font-size: 20px;
+      margin: -130px 0 50px 0;
+      display: block;
+     }
+
+    .social ul {
+      display: inline-block;
     }
 
     .nav {
@@ -49,9 +60,9 @@
       border-bottom: 3px solid black;
     }
 
-    .nav li {
+    .nav li, .social li {
       display: inline-block;
-          }
+    }
     .nav a {
       padding: 15px;
       margin: 0px;
@@ -71,6 +82,13 @@
         margin-top: 0;
         display: block;
       }
+
+      .social {
+        font-size: 20px;
+        margin: -40px 0 0 0;
+        display: block;
+       }
+
     }
 
     @media (max-width: 500px) {
@@ -86,6 +104,13 @@
       .nav a {
         font-size: 18px;
       }
+
+      .social {
+        font-size: 18px;
+        margin: -20px 0 0 0;
+        display: block;
+       }
+
     }
   </style>
 
@@ -94,7 +119,14 @@
 <body>
   <header>
     <img class="profile" src="https://i.imgur.com/m7Lkrno.png">
-    <p>Hi! I'm xael, a Sydney-based <a class="define" href="https://www.merriam-webster.com/dictionary/solutionist" target="about:blank">solutionist!</a></p>
+    <p>Hi! I'm Tim, a Sydney-based <a class="define" href="https://www.merriam-webster.com/dictionary/solutionist" target="about:blank">solutionist!</a></p>
+    <span class="social">Follow me on:
+      <ul>
+        <li> 
+          <a href="http://www.linkedin.com/in/tim-caldwell-solutionist"><img src="res/In-2C-28px-R.png" /></a>
+        </li>
+      </ul>
+    </span>
     <ul class="nav">
       <li><a href="#">Web Development</a></li>
       <li><a href="#">YouTube</a></li>
@@ -103,10 +135,10 @@
   </header>
 
   <main>
-    <!--TODO: IFRAME? PHP? SHOWS CONTENT FOR NAVBAR-->
+    <!--TODO: CONTENT -->
   </main>
 
   <footer>
-    <!--TODO: IFRAME? PHP? SHOWS CONTENT FOR NAVBAR-->
+    <!--TODO: CONTENT -->
   </footer>
 </body>
