@@ -24,7 +24,19 @@ var cards = [
 	}
 ];
 
+
 var cardsInPlay = [];
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function sleep(ms) {
+  //console.log('Taking a break...');
+  await wait(ms);
+  //console.log('Two second later');
+}
+
 
 var flipCard = function ()
 	{
@@ -35,14 +47,39 @@ var flipCard = function ()
 
 		cardsInPlay.push(cards[cardID].rank);
 
-		this.setAttribute('src',cards[cardID].cardImage);
+		this.style.width = '0px';
+
+		//get margin values for new margin
+		var marginHz = 12 + (175/2) + 'px';
+
+		this.style.marginLeft = marginHz;
+		this.style.marginRight = marginHz;
+
+		console.log("Total Width: " + getTotalEleWidth(this));
+		
+		console.log("Sides Margin: " + marginHz);
+
+		console.log('flipping card - 0px');
+		
+		setTimeout(function(element){
+    	element.setAttribute('src',cards[cardID].cardImage);
+	  	element.removeAttribute('style');
+	  	console.log('flipping card - 175px');
+		},350,this);
+
+		
 		this.className = 'flippedCard';
 		this.removeEventListener('click', flipCard);
 
 		setTimeout(function(){
     	checkForMatch();
-		},500);
+		},700);
 	}
+
+var asyncAlert = async function(msg)
+{
+	alert(msg);
+}
 
 var checkForMatch = function()
 	{
@@ -52,45 +89,70 @@ var checkForMatch = function()
 			if (cardsInPlay[0] === cardsInPlay[1])
 			{
 				markMatchedCards();
-				alert("You found a match!");
+				asyncAlert("You found a match!");
 			}
 			else
 			{
 				resetFlippedCards();
-				alert("Sorry, try again");
+				asyncAlert("Sorry, try again");
 			}
 		}
 	}
 
+var getTotalEleWidth = function(element)
+{
+	var computedStyle = window.getComputedStyle(element,null)
 
-var resetBoard = function(){
+	var marginLeft = Number(computedStyle.getPropertyValue("margin-left").match(/\d+/));
+	var marginRight = Number(computedStyle.getPropertyValue("margin-left").match(/\d+/));
+	var blockWidth = Number(computedStyle.getPropertyValue("width").match(/\d+/));
+
+	return (marginLeft + marginRight + blockWidth);
+}
+
+var resetCards = function(cards)
+{
+
+	for (var i = 0; i < cards.length; i++)
+	{
+		//set animation styles for unflipped cards
+		cards[i].style.width = '0px';
+		cards[i].style.marginLeft = 12 + (175/2) + 'px'
+		cards[i].style.marginRight = 12 + (175/2) + 'px'
+		
+		cards[i].addEventListener('click', flipCard);
+
+		setTimeout(function(element){
+			//remove animation styles for unflipped cards.
+    	element.setAttribute('src','images/back.png');
+	  	element.removeAttribute('style');
+	  	element.className = 'unmatchedCard';
+	  	
+		},350,cards[i]);
+
+		
+	}
+
+	//clear cards in play array
+	cardsInPlay.length = 0;
+		
+}
+
+var resetBoard = function()
+{
 	// get all cards and flip them back over
 	var cards = document.getElementById('game-board').children;
 
-	for (var i = 0; i < cards.length; i++)
-	{
-		cards[i].setAttribute('src','images/back.png');
-		cards[i].addEventListener('click', flipCard);
-		cards[i].className = 'unmatchedCard';
-	}
-
-	//clear cards in play array
-	cardsInPlay.length = 0;
+	resetCards(cards);
 }
 
-var resetFlippedCards = function(){
+var resetFlippedCards = function()
+{
 	// get all flipped cards and flip them back over
 	var cards = document.querySelectorAll('.flippedCard');
 
-	for (var i = 0; i < cards.length; i++)
-	{
-		cards[i].setAttribute('src','images/back.png');
-		cards[i].className = 'unmatchedCard';
-		cards[i].addEventListener('click', flipCard);
-	}
+	resetCards(cards);
 
-	//clear cards in play array
-	cardsInPlay.length = 0;
 }
 
 var markMatchedCards = function(){

@@ -39,6 +39,7 @@ p {
 body {
 	text-align: center;
 	margin: 0;
+	min-width: 850px;
 }
 
 header {
@@ -74,6 +75,7 @@ main {
 
 .unmatchedCard {
 	margin: 44px 14px;
+	border: 0px solid transparent; /* needed here to make transitions work smoothly and correctly */
 }
 
 .flippedCard {
@@ -86,6 +88,16 @@ main {
     border-radius: 11.5px;
     border: 4px solid green;
     margin: 40px 10px;
+}
+
+.board img {
+	width: 175px;
+	height: 279px;
+	-webkit-transition: width .35s, margin .35s, border .35s;
+	-moz-transition: width .35s, margin .35s, border .35s;
+	-o-transition: width .35s, margin .35s, border .35s;
+	transition: width .35s, margin .35s, border .35s;
+
 }
 
 footer {
