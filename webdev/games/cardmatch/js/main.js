@@ -37,6 +37,7 @@ var flipCard = function ()
 
 		this.setAttribute('src',cards[cardID].cardImage);
 		this.className = 'flippedCard';
+		this.removeEventListener('click', flipCard);
 
 		setTimeout(function(){
     	checkForMatch();
@@ -61,6 +62,7 @@ var checkForMatch = function()
 		}
 	}
 
+
 var resetBoard = function(){
 	// get all cards and flip them back over
 	var cards = document.getElementById('game-board').children;
@@ -68,6 +70,8 @@ var resetBoard = function(){
 	for (var i = 0; i < cards.length; i++)
 	{
 		cards[i].setAttribute('src','images/back.png');
+		cards[i].addEventListener('click', flipCard);
+		cards[i].className = 'unmatchedCard';
 	}
 
 	//clear cards in play array
@@ -82,6 +86,7 @@ var resetFlippedCards = function(){
 	{
 		cards[i].setAttribute('src','images/back.png');
 		cards[i].className = 'unmatchedCard';
+		cards[i].addEventListener('click', flipCard);
 	}
 
 	//clear cards in play array
@@ -129,3 +134,19 @@ createBoard();
 
 //register event listener for reset button.
 document.getElementById('resetGameButton').addEventListener('click',resetBoard);
+
+
+//register event listener for instructions toggle
+document.getElementById('instructionsToggle').addEventListener('click',function(){
+	var instructions = document.getElementById('instructionsContainer');
+
+	if (instructions.style.height !== '0px')
+	{
+		instructions.style.height = '0px';
+	}
+	else
+	{
+		instructions.style.height = '125px';
+	}
+});
+

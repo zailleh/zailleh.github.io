@@ -32,7 +32,7 @@ h2 {
 
 p {
 	font-family: "Droid Serif", serif;
-	line-height: 26px:
+	line-height: 26px;
 	font-size: 18px;
 }
 
@@ -72,8 +72,20 @@ main {
 	width: 850px;
 }
 
-img {
-	margin: 40px 8px;
+.unmatchedCard {
+	margin: 44px 14px;
+}
+
+.flippedCard {
+    border-radius: 8px;
+    border: 2px solid gold;
+    margin: 42px 12px;
+}
+
+.matchedCard {
+    border-radius: 11.5px;
+    border: 4px solid green;
+    margin: 40px 10px;
 }
 
 footer {
@@ -107,4 +119,13 @@ font-size: 0;
 .name {
 	color: #F15B31;
 	font-weight: 700;
+}
+
+#instructionsContainer {
+	height: 0px;
+	overflow: hidden;
+	-webkit-transition: height 1s;
+	-moz-transition: height 1s;
+	-o-transition: height 1s;
+	transition: height 1s;
 }
