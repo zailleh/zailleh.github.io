@@ -1,51 +1,66 @@
-console.log("Up and running!");
+// Define Functions //////////////////////////////////////////////////
+
+// Creates the deck to be used for the game containing all cards required for matching.
+var createDeck = function()
+{
+	deck = [];
+	var suits = ['Heart','Spade','Diamond','Club'];
+	var ranks = ['2','3','4','5','6','7','8','9','10','A','J','Q','K'];
+
+	console.log("creating deck. difficulty is: " + difficulty + " - total cards: " + (4*(Math.round(ranks.length / difficulty))));
+	
+	for (var i = 0; i < suits.length; i++)
+		for (var j = 0; j < Math.round(ranks.length / difficulty); j++)
+			deck.push({
+				rank: ranks[j],
+				cardImage: 'images/' + ranks[j] + suits[i].slice(0,1) + '.png'
+			});
+
+	console.log(deck.length + ' cards created');
+}
 
 
-var cards = [
-	{
-		rank: "queen",
-		suit: "hearts",
-		cardImage: "images/queen-of-hearts.png"
-	},
-	{
-		rank: "queen",
-		suit: "diamonds",
-		cardImage: "images/queen-of-diamonds.png"
-	},
-	{
-		rank: "king",
-		suit: "hearts",
-		cardImage: "images/king-of-hearts.png"
-	},
-	{
-		rank: "king",
-		suit: "diamonds",
-		cardImage: "images/king-of-diamonds.png"
-	}
-];
+// Shuffle the deck, which is created in order
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
 
-var cardsInPlay = [];
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
 
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+// wait function
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// sleep function
 async function sleep(ms) {
   //console.log('Taking a break...');
   await wait(ms);
   //console.log('Two second later');
 }
 
-
+// flips cards over to show their rank and suit when clicked
 var flipCard = function ()
 	{
 		var cardID = this.getAttribute('data-id');
-		console.log("User flipped " + cards[cardID].rank);
-		console.log(cards[cardID].cardImage);
-		console.log(cards[cardID].rank);
+		console.log("User flipped " + deck[cardID].rank);
+		console.log(deck[cardID].cardImage);
+		console.log(deck[cardID].rank);
 
-		cardsInPlay.push(cards[cardID].rank);
+		cardsInPlay.push(deck[cardID].rank);
 
 		this.style.width = '0px';
 
@@ -55,14 +70,14 @@ var flipCard = function ()
 		this.style.marginLeft = marginHz;
 		this.style.marginRight = marginHz;
 
-		console.log("Total Width: " + getTotalEleWidth(this));
+		//console.log("Total Width: " + getTotalEleWidth(this));
 		
 		console.log("Sides Margin: " + marginHz);
 
 		console.log('flipping card - 0px');
 		
 		setTimeout(function(element){
-    	element.setAttribute('src',cards[cardID].cardImage);
+    	element.setAttribute('src',deck[cardID].cardImage);
 	  	element.removeAttribute('style');
 	  	console.log('flipping card - 175px');
 		},350,this);
@@ -81,6 +96,7 @@ var asyncAlert = async function(msg)
 	alert(msg);
 }
 
+// checks flipped cards for match
 var checkForMatch = function()
 	{
 
@@ -99,6 +115,8 @@ var checkForMatch = function()
 		}
 	}
 
+// troubleshooting function
+/*
 var getTotalEleWidth = function(element)
 {
 	var computedStyle = window.getComputedStyle(element,null)
@@ -108,8 +126,9 @@ var getTotalEleWidth = function(element)
 	var blockWidth = Number(computedStyle.getPropertyValue("width").match(/\d+/));
 
 	return (marginLeft + marginRight + blockWidth);
-}
+} */
 
+// common function used to flip cards to show their back and set them back to default visualisations
 var resetCards = function(cards)
 {
 
@@ -128,7 +147,7 @@ var resetCards = function(cards)
 	  	element.removeAttribute('style');
 	  	element.className = 'unmatchedCard';
 	  	
-		},350,cards[i]);
+		},350*(i*0.25),cards[i]);
 
 		
 	}
@@ -138,23 +157,31 @@ var resetCards = function(cards)
 		
 }
 
+
+// resets the board at the current difficulty
 var resetBoard = function()
 {
-	// get all cards and flip them back over
+
+	createBoard();
+	shuffle(deck);
+
 	var cards = document.getElementById('game-board').children;
 
 	resetCards(cards);
 }
 
+
+// get all flipped cards and flip them back over
 var resetFlippedCards = function()
 {
-	// get all flipped cards and flip them back over
 	var cards = document.querySelectorAll('.flippedCard');
 
 	resetCards(cards);
 
 }
 
+
+// marks matched cards as matched and removes the event listener
 var markMatchedCards = function(){
 	// get flipped cards and mark them matched
 	var cards = document.querySelectorAll('.flippedCard');
@@ -168,8 +195,20 @@ var markMatchedCards = function(){
 	cardsInPlay.length = 0;
 }
 
+
+// create the board of cards to match
 var createBoard = function(){
-	for (var i = 0; i < cards.length; i++)
+
+	console.log('creating game board');
+
+	var gameBoard = document.getElementById('game-board');
+
+	// remove all children
+	while (gameBoard.firstChild) {
+    gameBoard.removeChild(gameBoard.firstChild);
+	}
+
+	for (var i = 0; i < deck.length; i++)
 	{
 		var cardElement = document.createElement('img');
 
@@ -178,7 +217,8 @@ var createBoard = function(){
 		cardElement.className = 'unmatchedCard';
 		cardElement.addEventListener('click', flipCard);
 
-		document.getElementById('game-board').appendChild(cardElement);
+		gameBoard.appendChild(cardElement);
+
 	}
 }
 
@@ -191,12 +231,23 @@ function sleep(milliseconds) {
   }
 }
 
-//create the game board
-createBoard();
+function changeDifficulty() {
+	difficulty = parseInt(document.getElementById("difficulty").options[document.getElementById("difficulty").selectedIndex].value);
+	console.log('changing diffuclty to: ' + difficulty);
+	createDeck();
+	createBoard();
+}
 
-//register event listener for reset button.
-document.getElementById('resetGameButton').addEventListener('click',resetBoard);
 
+// Initialise global variables //////////////////////////
+var deck = [];
+var difficulty = parseInt(document.getElementById("difficulty").options[document.getElementById("difficulty").selectedIndex].value);
+var cardsInPlay = [];
+
+//register event listeners //////////////////////////////
+//register event listener for reset buttons
+document.getElementById('resetGameButtonTop').addEventListener('click',resetBoard);
+document.getElementById('resetGameButtonBottom').addEventListener('click',resetBoard);
 
 //register event listener for instructions toggle
 document.getElementById('instructionsToggle').addEventListener('click',function(){
@@ -211,4 +262,18 @@ document.getElementById('instructionsToggle').addEventListener('click',function(
 		instructions.style.height = '125px';
 	}
 });
+
+document.getElementById('difficulty').addEventListener('onChange',changeDifficulty);
+
+
+// Begin execution //////////////////////////////////////
+console.log("Up and running!");
+
+// initialize the deck
+createDeck(difficulty);
+
+//create the game board
+resetBoard();
+
+
 
