@@ -5,6 +5,15 @@
 <head>
 	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Raleway:400,500,600,700" rel="stylesheet">
+<!--[if IE]>
+  <style type="text/css">
+
+    #popup {
+      background:none !important;
+    }
+
+  </style>
+<![endif]-->
 	<title>Memory Card Game</title>
 </head>
 
@@ -46,12 +55,12 @@
     <option value="3">Easy (16 Cards)</option>
     <option selected="selected" value="4">Noob (12 Cards)</option>
   </select>
-
-</form>
 	
 	<div id="game-board" class="board clearfix"></div>
 
 	<button id="resetGameButtonBottom">Reset Game</button>
+
+	<div id="popup"></div>
 	</main>
 
 	<footer class="clearfix">

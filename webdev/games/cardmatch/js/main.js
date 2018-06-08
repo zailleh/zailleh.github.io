@@ -98,19 +98,43 @@ var asyncAlert = async function(msg)
 // checks flipped cards for match
 var checkForMatch = function()
 	{
-
 		if (cardsInPlay.length === 2)
 		{
+
+			var popUp = document.getElementById('popup');
+			var popMsg = document.createElement('span');
+
 			if (cardsInPlay[0] === cardsInPlay[1])
 			{
 				markMatchedCards();
-				asyncAlert("You found a match!");
+				
+				popMsg.className = "match"
+				popMsg.innerText = "Match!"
 			}
 			else
 			{
 				resetFlippedCards();
-				asyncAlert("Sorry, try again");
+				
+				popMsg.className = "nomatch"
+				popMsg.innerText = "No Match!"
 			}
+
+			while (popUp.firstChild !== null) {
+				popUp.removeChild(popUp.firstChild);
+			}
+
+			popUp.appendChild(popMsg);
+			popUp.style.opacity = '1'
+
+			setTimeout(function(element){
+				element.style.opacity = '0';
+
+			},3000,popUp);
+
+			setTimeout(function(element,child){
+				element.removeChild(popMsg);
+			},3350,popUp,popMsg);
+
 		}
 	}
 

@@ -102,7 +102,7 @@ main {
   background-position: calc(0.8218% + (var(--col)*8.218%)) calc(1.24% + (var(--row)*24.351%));
   border-radius: 9%;
 
-  	
+
 	--row: 4;
 	--col: 4;
 
@@ -121,6 +121,38 @@ footer {
 	letter-spacing: 0.08em;
 	font-weight: 500;
 	text-transform: uppercase;
+}
+
+#popup {
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+  width: 40vw;
+  height: 10vw;
+  text-align: center;
+
+  z-index: 1;
+  left: calc(50% - 20vw);
+  top: calc(50% - 20vw);
+  pointer-events: none;
+  opacity: 0;
+
+  transition: opacity .35s;
+}
+
+#popup span {
+  position: relative;
+  display: inline-block;
+  font-size: 5vw;
+  top: calc(50% - 3vw);
+  font-family: "Raleway", sans-serif;
+}
+
+.match {
+	color: gold;
+}
+
+.nomatch {
+	color: red;
 }
 
 .copyright {
