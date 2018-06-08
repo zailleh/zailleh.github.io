@@ -90,9 +90,22 @@ main {
     margin: 20px 10px;
 }
 
-.board img {
+.board div {
 	width: 175px;
-	height: 279px;
+  height: 262px;
+
+  display: inline-block;
+  
+  background-image: url(../images/2048px-English_pattern_playing_cards_deck_PLUS.svg.png);
+  background-repeat: no-repeat;
+  background-size: 1410% 530%;
+  background-position: calc(0.8218% + (var(--col)*8.218%)) calc(1.24% + (var(--row)*24.351%));
+  border-radius: 9%;
+
+  	
+	--row: 4;
+	--col: 4;
+
 	-webkit-transition: width .35s, margin .35s, border .35s;
 	-moz-transition: width .35s, margin .35s, border .35s;
 	-o-transition: width .35s, margin .35s, border .35s;

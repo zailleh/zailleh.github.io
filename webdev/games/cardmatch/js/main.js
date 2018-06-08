@@ -4,8 +4,8 @@
 var createDeck = function()
 {
 	deck = [];
-	var suits = ['Heart','Spade','Diamond','Club'];
-	var ranks = ['2','3','4','5','6','7','8','9','10','A','J','Q','K'];
+	var suits = ['Spade','Heart','Diamond','Club'];
+	var ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
 	console.log("creating deck. difficulty is: " + difficulty + " - total cards: " + (4*(Math.round(ranks.length / difficulty))));
 	
@@ -13,7 +13,8 @@ var createDeck = function()
 		for (var j = 0; j < Math.round(ranks.length / difficulty); j++)
 			deck.push({
 				rank: ranks[j],
-				cardImage: 'images/' + ranks[j] + suits[i].slice(0,1) + '.png'
+				cardImageRow: i, //suit starting at Ace
+				cardImageColumn: j, //rank
 			});
 
 	console.log(deck.length + ' cards created');
@@ -57,7 +58,6 @@ var flipCard = function ()
 	{
 		var cardID = this.getAttribute('data-id');
 		console.log("User flipped " + deck[cardID].rank);
-		console.log(deck[cardID].cardImage);
 		console.log(deck[cardID].rank);
 
 		cardsInPlay.push(deck[cardID].rank);
@@ -77,8 +77,7 @@ var flipCard = function ()
 		console.log('flipping card - 0px');
 		
 		setTimeout(function(element){
-    	element.setAttribute('src',deck[cardID].cardImage);
-	  	element.removeAttribute('style');
+	  	element.setAttribute('style','--row: ' + deck[cardID].cardImageRow + '; --col: ' + deck[cardID].cardImageColumn + ';')
 	  	console.log('flipping card - 175px');
 		},350,this);
 
@@ -143,11 +142,10 @@ var resetCards = function(cards)
 
 		setTimeout(function(element){
 			//remove animation styles for unflipped cards.
-    	element.setAttribute('src','images/back.png');
 	  	element.removeAttribute('style');
 	  	element.className = 'unmatchedCard';
 	  	
-		},350*(i*0.25),cards[i]);
+		},350+(i*350/4),cards[i]);
 
 		
 	}
@@ -210,9 +208,8 @@ var createBoard = function(){
 
 	for (var i = 0; i < deck.length; i++)
 	{
-		var cardElement = document.createElement('img');
+		var cardElement = document.createElement('div');
 
-		cardElement.setAttribute('src','images/back.png');
 		cardElement.setAttribute('data-id',i);
 		cardElement.className = 'unmatchedCard';
 		cardElement.addEventListener('click', flipCard);
