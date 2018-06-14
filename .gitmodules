@@ -1,0 +1,6 @@
+[submodule "webdev/games/js_cardmatch"]
+	path = webdev/games/js_cardmatch
+	url = https://github.com/zailleh/js_cardmatch.git
+[submodule "webdev/apps/js_paint"]
+	path = webdev/apps/js_paint
+	url = https://github.com/zailleh/js_paint.git
