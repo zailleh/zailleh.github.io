@@ -4,3 +4,9 @@
 [submodule "webdev/apps/js_paint"]
 	path = webdev/apps/js_paint
 	url = https://github.com/zailleh/js_paint.git
+[submodule "webdev/funstuff/wdi28-catwalk"]
+	path = webdev/funstuff/wdi28-catwalk
+	url = https://github.com/zailleh/wdi28-catwalk.git
+[submodule "webdev/funstuff/wdi28-fansite"]
+	path = webdev/funstuff/wdi28-fansite
+	url = https://github.com/zailleh/wdi28-fansite.git
