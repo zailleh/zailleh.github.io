@@ -10,3 +10,6 @@
 [submodule "webdev/funstuff/wdi28-fansite"]
 	path = webdev/funstuff/wdi28-fansite
 	url = https://github.com/zailleh/wdi28-fansite.git
+[submodule "webdev/apps/jQuery_game"]
+	path = webdev/apps/jQuery_game
+	url = https://github.com/zailleh/jQuery_game.git
