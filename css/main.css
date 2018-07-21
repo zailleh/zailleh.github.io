@@ -2,6 +2,8 @@ body {
   background: url("https://i.imgur.com/OHcbu6S.jpg");
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   font-family: 'Share Tech', sans-serif;
 }
 
@@ -27,4 +29,52 @@ img.profile {
 
 .card-dark {
   background-color: rgba(0,0,0,.5);
+  margin: .5em;
+}
+
+.card-portfolio {
+  width: 17.5rem;
+}
+
+.crop-square {
+  object-fit: cover;
+  width: 100%;
+  height: 18rem;
+}
+
+.gh-logo {
+  display: inline-block;
+  background-image: url("../res/GitHub-Mark-Light-120px-plus.png");
+  width: 1em;
+  height: 1em;
+  background-size: 100%;
+  margin-right: .25em;
+  vertical-align: text-top;
+}
+
+.buttons-bottom {
+  margin: auto auto;
+  margin-bottom: 1.25rem
+}
+
+.inline-img {
+  display: inline-block;
+  height: 1.5em;
+  vertical-align: bottom;
+  transition:  background-colour .5s,  height .5s;
+  border-radius: .125em;
+  padding: .125em;
+}
+
+.hover-img {
+  opacity: 0.75;
+  transition: opacity .5s;
+}
+
+.hover-img:hover {
+  opacity: 1
+}
+
+.full-vh {
+  min-height: 100vh !important;
 }
