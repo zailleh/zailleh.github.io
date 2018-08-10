@@ -37,7 +37,7 @@ body {
 }
 
 .card-portfolio {
-  width: 17.5rem;
+  width: 17rem;
 }
 
 .crop-square {
@@ -75,7 +75,7 @@ body {
   transition: opacity .5s;
 }
 
-.hover-img:hover {
+.card-portfolio:hover .hover-img {
   opacity: 1
 }
 
